@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tech Center | Catálogo & Serviços</title>
+
+  <!-- Fontes estilizadas (Orbitron para títulos tecnológicos e Rajdhani para leitura limpa) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       1. VARIÁVEIS DE CORES NEON & CONFIGURAÇÕES GERAIS
+    ========================================================================== */
+    :root {
+      --bg-dark: #07070c;
+      --bg-card: #10101a;
+      --bg-card-hover: #161626;
+      --neon-blue: #00a2ff;
+      --neon-blue-light: #66c7ff;
+      --neon-cyan: #00f3ff;
+      --neon-green: #00ff66;
+      --text-main: var(--neon-blue-light);
+      --text-muted: #5c9ec9;
+      --border-glow: rgba(0, 162, 255, 0.35);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Rajdhani', sans-serif;
+      background-image:
+        radial-gradient(circle at 15% 15%, rgba(0, 255, 102, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(0, 162, 255, 0.16) 0%, transparent 40%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, .brand-font {
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    /* ==========================================================================
+       2. CABEÇALHO, BUSCA E MENU DE CATEGORIAS
+    ========================================================================== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 7, 12, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-glow);
+      box-shadow: 0 4px 25px rgba(0, 162, 255, 0.18);
+    }
+
+    .header-top {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: var(--neon-blue-light);
+      text-shadow: 0 0 10px var(--neon-blue), 0 0 22px var(--neon-blue);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo span {
+      color: var(--neon-green);
+      text-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green);
+    }
+
+    .search-box {
+      flex: 1;
+      max-width: 420px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 18px;
+      border-radius: 30px;
+      border: 1px solid var(--neon-blue);
+      background: rgba(16, 16, 26, 0.9);
+      color: var(--neon-blue-light);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.05rem;
+      outline: none;
+      box-shadow: 0 0 12px rgba(0, 162, 255, 0.25);
+      transition: 0.3s;
+    }
+
+    .search-box input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .search-box input:focus {
+      box-shadow: 0 0 20px rgba(0, 162, 255, 0.65);
+    }
+
+    .cart-btn-header {
+      background: linear-gradient(45deg, #00c853, var(--neon-green));
+      border: none;
+      color: #000;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 0 15px rgba(0, 255, 102, 0.5);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .cart-btn-header:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(0, 255, 102, 0.85);
+    }
+
+    .cart-badge {
+      background: #07070c;
+      color: var(--neon-green);
+      border: 1px solid var(--neon-green);
+      font-weight: 900;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+    }
+
+    /* MENU DE CATEGORIAS */
+    nav.category-menu {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 10px 20px 15px;
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--neon-blue) var(--bg-dark);
+    }
+
+    .cat-btn {
+      background: var(--bg-card);
+      color: var(--neon-blue-light);
+      border: 1px solid rgba(0, 162, 255, 0.25);
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .cat-btn:hover {
+      border-color: var(--neon-blue);
+      color: var(--neon-cyan);
+      box-shadow: 0 0 12px rgba(0, 162, 255, 0.4);
+    }
+
+    .cat-btn.active {
+      background: rgba(0, 162, 255, 0.18);
+      border-color: var(--neon-blue);
+      color: var(--neon-cyan);
+      text-shadow: 0 0 8px rgba(0, 162, 255, 0.5);
+      box-shadow: 0 0 15px rgba(0, 162, 255, 0.5);
+    }
+
+    /* ==========================================================================
+       3. BANNER PRINCIPAL
+    ========================================================================== */
+    .hero {
+      max-width: 1280px;
+      margin: 25px auto 10px;
+      padding: 0 20px;
+    }
+
+    .hero-box {
+      background: linear-gradient(135deg, rgba(16, 16, 26, 0.95), rgba(10, 36, 46, 0.9));
+      border: 1px solid var(--neon-green);
+      border-radius: 16px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(0, 255, 102, 0.2);
+    }
+
+    .hero-box h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, var(--neon-blue), var(--neon-cyan), var(--neon-green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-box p {
+      color: var(--neon-blue-light);
+      font-size: 1.15rem;
+      max-width: 750px;
+      margin: 0 auto;
+    }
+
+    /* ==========================================================================
+       4. GRADE DE PRODUTOS E CARDS
+    ========================================================================== */
+    main {
+      max-width: 1280px;
+      margin: 25px auto 80px;
+      padding: 0 20px;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+      color: var(--neon-blue);
+      text-shadow: 0 0 10px rgba(0, 162, 255, 0.6);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid rgba(0, 162, 255, 0.15);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      background: var(--bg-card-hover);
+      border-color: var(--neon-blue);
+      box-shadow: 0 0 22px rgba(0, 162, 255, 0.35);
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(7, 7, 12, 0.85);
+      border: 1px solid var(--neon-green);
+      color: var(--neon-green);
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      box-shadow: 0 0 10px rgba(0, 255, 102, 0.3);
+    }
+
+    .card-img {
+      height: 170px;
+      background: linear-gradient(135deg, #101628, #122836);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      border-bottom: 1px solid rgba(0, 162, 255, 0.15);
+    }
+
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 18px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card-title {
+      font-size: 1.15rem;
+      color: var(--neon-blue-light);
+      text-shadow: 0 0 6px rgba(0, 162, 255, 0.4);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      color: var(--text-muted);
+      font-size: 0.98rem;
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(0, 162, 255, 0.15);
+    }
+
+    .price {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--neon-green);
+      text-shadow: 0 0 8px rgba(0, 255, 102, 0.35);
+    }
+
+    .price small {
+      display: block;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-shadow: none;
+    }
+
+    .add-btn {
+      background: transparent;
+      border: 1px solid var(--neon-blue);
+      color: var(--neon-blue-light);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+
+    .add-btn:hover {
+      background: var(--neon-blue);
+      color: #000;
+      box-shadow: 0 0 15px var(--neon-blue);
+    }
+
+    /* ==========================================================================
+       5. CARRINHO LATERAL (DRAWER)
+    ========================================================================== */
+    .cart-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .cart-overlay.open {
+      display: block;
+      opacity: 1;
+    }
+
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: -420px;
+      width: 100%;
+      max-width: 400px;
+      height: 100vh;
+      background: #0c0c14;
+      border-left: 2px solid var(--neon-green);
+      box-shadow: -10px 0 35px rgba(0, 255, 102, 0.3);
+      z-index: 201;
+      display: flex;
+      flex-direction: column;
+      transition: right 0.35s ease;
+    }
+
+    .cart-drawer.open {
+      right: 0;
+    }
+
+    .cart-header {
+      padding: 20px;
+      border-bottom: 1px solid rgba(0, 162, 255, 0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart-header h2 {
+      font-size: 1.2rem;
+      color: var(--neon-green);
+      text-shadow: 0 0 10px rgba(0, 255, 102, 0.4);
+    }
+
+    .close-cart {
+      background: none;
+      border: 1px solid var(--neon-blue);
+      color: var(--neon-blue-light);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: 0.2s;
+    }
+
+    .close-cart:hover {
+      background: var(--neon-blue);
+      color: #000;
+    }
+
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .cart-item {
+      background: var(--bg-card);
+      border: 1px solid rgba(0, 162, 255, 0.18);
+      border-radius: 10px;
+      padding: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .cart-item-info h4 {
+      font-size: 1rem;
+      color: var(--neon-blue-light);
+      margin-bottom: 4px;
+    }
+
+    .cart-item-info span {
+      color: var(--neon-green);
+      font-weight: 700;
+    }
+
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--neon-blue-light);
+    }
+
+    .qty-btn {
+      background: rgba(0, 162, 255, 0.15);
+      border: 1px solid var(--neon-blue);
+      color: var(--neon-blue-light);
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .qty-btn:hover {
+      background: var(--neon-blue);
+      color: #000;
+    }
+
+    .cart-footer {
+      padding: 20px;
+      border-top: 1px solid rgba(0, 162, 255, 0.2);
+      background: #08080e;
+    }
+
+    .client-inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .client-inputs input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 162, 255, 0.45);
+      background: var(--bg-card);
+      color: var(--neon-blue-light);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1rem;
+    }
+
+    .client-inputs input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--neon-blue-light);
+      margin-bottom: 15px;
+    }
+
+    .cart-total span:last-child {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--neon-green);
+      text-shadow: 0 0 10px rgba(0, 255, 102, 0.4);
+    }
+
+    .checkout-btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(90deg, #00c853, var(--neon-green));
+      color: #000;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(0, 255, 102, 0.45);
+      transition: transform 0.2s;
+    }
+
+    .checkout-btn:hover {
+      transform: scale(1.02);
+    }
+
+    /* ==========================================================================
+       6. BOTÃO FLUTUANTE WHATSAPP & NOTIFICAÇÃO (TOAST)
+    ========================================================================== */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      width: 62px;
+      height: 62px;
+      background: #25d366;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 0 20px rgba(37, 211, 102, 0.7);
+      z-index: 150;
+      transition: transform 0.3s;
+      animation: pulse-wa 2s infinite;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+    }
+
+    .whatsapp-float svg {
+      width: 34px;
+      height: 34px;
+      fill: #fff;
+    }
+
+    @keyframes pulse-wa {
+      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+      70% { box-shadow: 0 0 0 16px rgba(37, 211, 102, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 95px;
+      right: 22px;
+      background: var(--bg-card);
+      border: 1px solid var(--neon-blue);
+      color: var(--neon-blue-light);
+      padding: 12px 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 18px rgba(0, 162, 255, 0.5);
+      z-index: 300;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: 0.3s;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ==========================================================================
+       7. RESPONSIVIDADE (TABLETS E DISPOSITIVOS MÓVEIS)
+    ========================================================================== */
+    @media (max-width: 900px) {
+      .header-top {
+        padding: 12px 16px;
+      }
+
+      .search-box {
+        max-width: 100%;
+        order: 3;
+        flex-basis: 100%;
+      }
+
+      .hero-box {
+        padding: 24px 18px;
+      }
+
+      .hero-box h1 {
+        font-size: 1.65rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .logo {
+        font-size: 1.35rem;
+        letter-spacing: 1px;
+      }
+
+      .cart-btn-header {
+        padding: 8px 14px;
+        font-size: 0.8rem;
+      }
+
+      nav.category-menu {
+        padding: 8px 15px 12px;
+        gap: 8px;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .cat-btn {
+        padding: 7px 14px;
+        font-size: 0.92rem;
+      }
+
+      .hero {
+        margin: 15px auto 5px;
+        padding: 0 15px;
+      }
+
+      .hero-box {
+        padding: 20px 15px;
+      }
+
+      .hero-box h1 {
+        font-size: 1.3rem;
+        line-height: 1.3;
+      }
+
+      .hero-box p {
+        font-size: 0.98rem;
+      }
+
+      main {
+        margin: 20px auto 90px;
+        padding: 0 15px;
+      }
+
+      .section-title {
+        font-size: 1.15rem;
+      }
+
+      .products-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .card-img {
+        height: 150px;
+      }
+
+      .price {
+        font-size: 1.1rem;
+      }
+
+      .add-btn {
+        padding: 8px 12px;
+        font-size: 0.78rem;
+      }
+
+      .cart-drawer {
+        max-width: 100%;
+        right: -100%;
+        border-left: none;
+      }
+
+      .cart-footer {
+        padding: 15px;
+      }
+
+      .client-inputs input {
+        font-size: 16px;
+      }
+
+      .whatsapp-float {
+        width: 54px;
+        height: 54px;
+        bottom: 16px;
+        right: 16px;
+      }
+
+      .whatsapp-float svg {
+        width: 28px;
+        height: 28px;
+      }
+
+      .toast {
+        left: 15px;
+        right: 15px;
+        bottom: 80px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================
+       CABEÇALHO E MENU DE CATEGORIAS
+  ======================================================================== -->
+  <header>
+    <div class="header-top">
+      <div class="logo">TECH<span>CENTER</span></div>
+
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Buscar câmeras, telas, Starlink, ring light..." onkeyup="filtrarProdutos()">
+      </div>
+
+      <button class="cart-btn-header" onclick="toggleCart()">
+        🛒 Carrinho <span class="cart-badge" id="cartCount">0</span>
+      </button>
+    </div>
+
+    <nav class="category-menu" id="categoryMenu">
+      <button class="cat-btn active" onclick="selecionarCategoria('todos', this)">🔥 Todos</button>
+      <button class="cat-btn" onclick="selecionarCategoria('cameras', this)">📹 Câmeras & Segurança</button>
+      <button class="cat-btn" onclick="selecionarCategoria('telas', this)">📱 Troca de Telas</button>
+      <button class="cat-btn" onclick="selecionarCategoria('baterias', this)">⚡ Baterias</button>
+      <button class="cat-btn" onclick="selecionarCategoria('starlink', this)">🛰️ Starlink</button>
+      <button class="cat-btn" onclick="selecionarCategoria('celulares', this)">🔌 Acessórios Celular</button>
+      <button class="cat-btn" onclick="selecionarCategoria('computadores', this)">💻 Computadores & Manutenção</button>
+      <button class="cat-btn" onclick="selecionarCategoria('lives', this)">🎙️ Itens para Lives & RGB</button>
+      <button class="cat-btn" onclick="selecionarCategoria('outros', this)">⚡ Outros Serviços</button>
+    </nav>
+  </header>
+
+  <!-- ========================================================================
+       BANNER DE APRESENTAÇÃO
+  ======================================================================== -->
+  <section class="hero">
+    <div class="hero-box">
+      <h1>SOLUÇÕES EM TECNOLOGIA, SEGURANÇA & SETUP</h1>
+      <p>Escolha os produtos ou serviços desejados, adicione ao carrinho e finalize seu pedido diretamente pelo nosso WhatsApp.</p>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       GRADE DE PRODUTOS E SERVIÇOS
+  ======================================================================== -->
+  <main>
+    <h2 class="section-title" id="currentCategoryTitle">CATÁLOGO COMPLETO</h2>
+    <div class="products-grid" id="productsGrid"></div>
+  </main>
+
+  <!-- ========================================================================
+       GAVETA DO CARRINHO DE COMPRAS
+  ======================================================================== -->
+  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h2>SEU PEDIDO</h2>
+      <button class="close-cart" onclick="toggleCart()">✕</button>
+    </div>
+
+    <div class="cart-items" id="cartItemsContainer"></div>
+
+    <div class="cart-footer">
+      <div class="client-inputs">
+        <input type="text" id="clientName" placeholder="Seu Nome (opcional)">
+        <input type="text" id="clientAddress" placeholder="Endereço de entrega ou bairro (opcional)">
+      </div>
+
+      <div class="cart-total">
+        <span>Total Estimado:</span>
+        <span id="cartTotalValue">R$ 0,00</span>
+      </div>
+
+      <button class="checkout-btn" onclick="finalizarNoWhatsApp()">
+        FINALIZAR NO WHATSAPP ➤
+      </button>
+    </div>
+  </aside>
+
+  <!-- ========================================================================
+       NOTIFICAÇÃO E BOTÃO FLUTUANTE DO WHATSAPP
+  ======================================================================== -->
+  <div class="toast" id="toast">Item adicionado ao carrinho!</div>
+
+  <a href="#" id="floatingWhatsapp" class="whatsapp-float" target="_blank" title="Falar no WhatsApp">
+    <svg viewBox="0 0 32 32">
+      <path d="M16 2.933c-7.213 0-13.067 5.853-13.067 13.067 0 2.307.6 4.56 1.747 6.547L2.8 29.333l6.973-1.827c1.92 1.04 4.08 1.587 6.227 1.587 7.213 0 13.067-5.853 13.067-13.067S23.213 2.933 16 2.933zm7.627 18.427c-.32.907-1.867 1.733-2.573 1.84-.653.107-1.48.147-2.387-.147-.547-.173-1.253-.413-2.16-.8-3.8-1.64-6.28-5.467-6.467-5.72-.187-.253-1.547-2.053-1.547-3.92s.973-2.787 1.32-3.16c.347-.373.76-.467 1.013-.467.253 0 .507.013.733.013.24 0 .56-.093.867.653.32.773 1.093 2.667 1.187 2.867.093.2.16.427.027.68-.133.253-.2.413-.387.64-.187.227-.4.507-.573.68-.187.187-.387.387-.16.76.227.373.987 1.627 2.12 2.64 1.453 1.293 2.68 1.693 3.053 1.88.373.187.587.16.8-.093.213-.253.92-1.067 1.16-1.44.24-.373.493-.307.827-.187.333.12 2.12 1 2.48 1.187.36.187.6.28.693.427.093.147.093.867-.227 1.773z"/>
+    </svg>
+  </a>
+
+  <!-- ========================================================================
+       SCRIPT: CONFIGURAÇÕES, CATÁLOGO E FUNÇÕES DO CARRINHO
+  ======================================================================== -->
+  <script>
+    /* ----------------------------------------------------------------------
+       1. CONFIGURAÇÕES DA LOJA (ALTERE AQUI O NÚMERO DO WHATSAPP)
+    ---------------------------------------------------------------------- */
+    const CONFIG_LOJA = {
+      nome: "MIRAI TECH",
+      whatsapp: "+5597984158505", // Formato: 55 + DDD + Número (Ex: 5597999998888)
+      mensagemPadraoWhatsapp: "Olá! Vim pelo catálogo online e gostaria de tirar uma dúvida."
+    };
+
+    /* ----------------------------------------------------------------------
+       2. LISTA DE PRODUTOS E SERVIÇOS (EDITE PREÇOS, NOMES OU FOTOS)
+    ---------------------------------------------------------------------- */
+    const PRODUTOS = [
+      // CÂMERAS DE VIGILÂNCIA
+      {
+        id: 1,
+        nome: "Instalação de Câmera/ DVR",
+        categoria: "cameras",
+        categoriaLabel: "Câmeras",
+        preco: 150.00,
+        tipoPreco: "A partir de",
+        icone: "📹",
+        imagem: "imagesdvr.jpg",
+        descricao: "Instalação completa, passagem de cabos, fixação e configuração no aplicativo do celular."
+      },
+      {
+        id: 2,
+        nome: "Kit 4 Câmeras Full HD + DVR + Fonte",
+        categoria: "cameras",
+        categoriaLabel: "Câmeras",
+        preco: 1190.00,
+        tipoPreco: "Kit Completo",
+        icone: "🛡️",
+        imagem: "imagesdvr4.jpg",
+        descricao: "Monitoramento dia e noite com visão noturna infravermelho e acesso remoto pelo celular."
+      },
+
+      // TROCA DE TELAS
+      {
+        id: 3,
+        nome: "Troca de Tela Smartphone (Android)",
+        categoria: "telas",
+        categoriaLabel: "Telas",
+        preco: 180.00,
+        tipoPreco: "A partir de",
+        icone: "📱",
+        imagem: "",
+        descricao: "Substituição de frontal/display quebrado com acabamento profissional e garantia de serviço."
+      },
+      {
+        id: 18,
+        nome: "Bateria",
+        categoria: "baterias",
+        categoriaLabel: "Baterias",
+        preco: 80.00,
+        tipoPreco: "A partir de",
+        icone: "🔋",
+        imagem: "images.jpg",
+        descricao: "Baterias para reposição em seu dispositivo"
+      },
+      {
+        id: 4,
+        nome: "Troca de Conector de Carga",
+        categoria: "telas",
+        categoriaLabel: "Assistência",
+        preco: 90.00,
+        tipoPreco: "A partir de",
+        icone: "🔋",
+        imagem: "imagesconector.jpg",
+        descricao: "Reparo rápido para aparelhos que não carregam ou descarregam rápido."
+      },
+
+      // STARLINK
+       {
+        id: 19,
+        nome: "Configuração Starlink",
+        categoria: "starlink",
+        categoriaLabel: "Starlink",
+        preco: 80.00,
+        tipoPreco: "Serviço Técnico",
+        icone: "🛰️",
+        imagem: "",
+        descricao: "Apenas a configuração de Wi-Fi e roteador."
+      },
+      {
+        id: 5,
+        nome: "Instalação e Configuração Starlink",
+        categoria: "starlink",
+        categoriaLabel: "Starlink",
+        preco: 250.00,
+        tipoPreco: "Serviço Técnico",
+        icone: "🛰️",
+        imagem: "",
+        descricao: "Fixação de suporte, alinhamento sem obstruções, configuração de Wi-Fi e roteador."
+      },
+      {
+        id: 6,
+        nome: "Suporte de Parede / Telhado para Starlink",
+        categoria: "starlink",
+        categoriaLabel: "Starlink",
+        preco: 140.00,
+        tipoPreco: "Acessório",
+        icone: "📡",
+        imagem: "",
+        descricao: "Suporte metálico reforçado resistente a vento e chuva para antena Starlink."
+      },
+
+      // ACESSÓRIOS PARA CELULARES
+      {
+        id: 7,
+        nome: "Carregador Turbo 30W Tipo-C / Lightning",
+        categoria: "celulares",
+        categoriaLabel: "Celulares",
+        preco: 65.00,
+        tipoPreco: "Unidade",
+        icone: "⚡",
+        imagem: "",
+        descricao: "Carregamento ultra rápido com proteção contra superaquecimento e cabo reforçado."
+      },
+      {
+        id: 8,
+        nome: "Fone Bluetooth Gamer / TWS RGB",
+        categoria: "celulares",
+        categoriaLabel: "Celulares",
+        preco: 85.00,
+        tipoPreco: "Unidade",
+        icone: "🎧",
+        imagem: "",
+        descricao: "Baixa latência, grave potente e case carregadora com iluminação LED."
+      },
+      {
+        id: 9,
+        nome: "Capinha Anti-Impacto + Película 3D",
+        categoria: "celulares",
+        categoriaLabel: "Celulares",
+        preco: 35.00,
+        tipoPreco: "Combo",
+        icone: "🛡️",
+        imagem: "",
+        descricao: "Proteção completa contra quedas e riscos para diversos modelos de celulares."
+      },
+
+      // COMPUTADORES E MANUTENÇÃO
+      {
+        id: 10,
+        nome: "Formatação + Limpeza Interna + Pasta Térmica",
+        categoria: "computadores",
+        categoriaLabel: "Manutenção PC",
+        preco: 100.00,
+        tipoPreco: "Serviço",
+        icone: "💻",
+        imagem: "",
+        descricao: "Windows otimizado, pacote Office instalado, limpeza de poeira e troca de pasta térmica."
+      },
+      {
+        id: 11,
+        nome: "Upgrade SSD 480GB + Instalação",
+        categoria: "computadores",
+        categoriaLabel: "Hardware",
+        preco: 290.00,
+        tipoPreco: "Peça + Mão de Obra",
+        icone: "💾",
+        imagem: "",
+        descricao: "Deixe seu notebook ou PC até 10x mais rápido para ligar e abrir programas."
+      },
+      {
+        id: 12,
+        nome: "Kit Teclado e Mouse Gamer RGB",
+        categoria: "computadores",
+        categoriaLabel: "Periféricos",
+        preco: 135.00,
+        tipoPreco: "Kit",
+        icone: "⌨️",
+        imagem: "",
+        descricao: "Teclado semi-mecânico iluminado e mouse óptico de alta precisão."
+      },
+
+      // ITENS PARA LIVES
+      {
+        id: 13,
+        nome: "Ring Light 12 Polegadas + Tripé 2,10m",
+        categoria: "lives",
+        categoriaLabel: "Lives",
+        preco: 120.00,
+        tipoPreco: "Kit Completo",
+        icone: "💡",
+        imagem: "",
+        descricao: "3 tons de luz (branco frio, neutro e quente) com controle de intensidade e suporte de celular."
+      },
+      {
+        id: 14,
+        nome: "Fita LED RGB 5 Metros com Controle",
+        categoria: "lives",
+        categoriaLabel: "Iluminação",
+        preco: 55.00,
+        tipoPreco: "Rolo 5m",
+        icone: "🌈",
+        imagem: "",
+        descricao: "Ideal para decorar cenário de lives, setups gamers e estúdios com várias cores."
+      },
+      {
+        id: 15,
+        nome: "Suporte Articulado de Mesa + Microfone",
+        categoria: "lives",
+        categoriaLabel: "Lives",
+        preco: 145.00,
+        tipoPreco: "Kit",
+        icone: "🎙️",
+        imagem: "",
+        descricao: "Braço articulado ajustável com áudio limpo para transmissões, podcasts e vídeos."
+      },
+
+      // OUTROS SERVIÇOS
+      {
+        id: 16,
+        nome: "Configuração de Roteador / Repetidor Wi-Fi",
+        categoria: "outros",
+        categoriaLabel: "Redes",
+        preco: 70.00,
+        tipoPreco: "Serviço",
+        icone: "📶",
+        imagem: "",
+        descricao: "Ampliação de sinal Wi-Fi, troca de senha e otimização de velocidade na sua casa ou empresa."
+      },
+       {
+        id: 17,
+        nome: "Instalação de cameras wifi/ Bocal e Parede",
+        categoria: "cameras",
+        categoriaLabel: "Câmeras",
+        preco: 30.00,
+        tipoPreco: "Serviço",
+        icone: "📹",
+        imagem: "imagescamera.jpg",
+        descricao: "Instalação completa mais a configuração do aplicativo no celular do cliente"
+      }
+    ];
+
+    /* ----------------------------------------------------------------------
+       3. LÓGICA DE NAVEGAÇÃO, FILTROS E CARRINHO
+    ---------------------------------------------------------------------- */
+    let categoriaAtual = "todos";
+    let carrinho = JSON.parse(localStorage.getItem("carrinho_techcenter")) || [];
+
+    document.getElementById("floatingWhatsapp").href =
+      `https://wa.me/${CONFIG_LOJA.whatsapp}?text=${encodeURIComponent(CONFIG_LOJA.mensagemPadraoWhatsapp)}`;
+
+    function formatarMoeda(valor) {
+      return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    }
+
+    function renderizarProdutos() {
+      const grid = document.getElementById("productsGrid");
+      const termoBusca = document.getElementById("searchInput").value.toLowerCase();
+      grid.innerHTML = "";
+
+      const filtrados = PRODUTOS.filter(prod => {
+        const bateCategoria = categoriaAtual === "todos" || prod.categoria === categoriaAtual;
+        const bateBusca = prod.nome.toLowerCase().includes(termoBusca) ||
+                          prod.descricao.toLowerCase().includes(termoBusca) ||
+                          prod.categoriaLabel.toLowerCase().includes(termoBusca);
+        return bateCategoria && bateBusca;
+      });
+
+      if (filtrados.length === 0) {
+        grid.innerHTML = `<p style="color: var(--text-muted); grid-column: 1/-1; text-align: center; padding: 40px;">Nenhum item encontrado para essa busca.</p>`;
+        return;
+      }
+
+      filtrados.forEach(prod => {
+        const midiaHTML = prod.imagem
+          ? `<img src="${prod.imagem}" alt="${prod.nome}">`
+          : `<span>${prod.icone}</span>`;
+
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <span class="card-badge">${prod.categoriaLabel}</span>
+          <div class="card-img">${midiaHTML}</div>
+          <div class="card-body">
+            <div>
+              <h3 class="card-title">${prod.nome}</h3>
+              <p class="card-desc">${prod.descricao}</p>
+            </div>
+            <div class="card-footer">
+              <div class="price">
+                <small>${prod.tipoPreco}</small>
+                ${formatarMoeda(prod.preco)}
+              </div>
+              <button class="add-btn" onclick="adicionarAoCarrinho(${prod.id})">+ ADICIONAR</button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function selecionarCategoria(cat, botao) {
+      categoriaAtual = cat;
+      document.querySelectorAll(".cat-btn").forEach(btn => btn.classList.remove("active"));
+      botao.classList.add("active");
+
+      const titulo = botao.innerText.replace(/^[^\wÀ-ú]+/, "");
+      document.getElementById("currentCategoryTitle").innerText =
+        cat === "todos" ? "CATÁLOGO COMPLETO" : `CATEGORIA: ${titulo.toUpperCase()}`;
+
+      renderizarProdutos();
+    }
+
+    function filtrarProdutos() {
+      renderizarProdutos();
+    }
+
+    function adicionarAoCarrinho(id) {
+      const produto = PRODUTOS.find(p => p.id === id);
+      const itemExistente = carrinho.find(item => item.id === id);
+
+      if (itemExistente) {
+        itemExistente.qtd += 1;
+      } else {
+        carrinho.push({ ...produto, qtd: 1 });
+      }
+
+      salvarEAtualizarCarrinho();
+      mostrarToast(`"${produto.nome}" adicionado!`);
+    }
+
+    function alterarQuantidade(id, delta) {
+      const index = carrinho.findIndex(item => item.id === id);
+      if (index === -1) return;
+
+      carrinho[index].qtd += delta;
+      if (carrinho[index].qtd <= 0) {
+        carrinho.splice(index, 1);
+      }
+
+      salvarEAtualizarCarrinho();
+    }
+
+    function salvarEAtualizarCarrinho() {
+      localStorage.setItem("carrinho_techcenter", JSON.stringify(carrinho));
+      atualizarInterfaceCarrinho();
+    }
+
+    function atualizarInterfaceCarrinho() {
+      const container = document.getElementById("cartItemsContainer");
+      const countBadge = document.getElementById("cartCount");
+      const totalEl = document.getElementById("cartTotalValue");
+
+      const totalItens = carrinho.reduce((acc, item) => acc + item.qtd, 0);
+      const totalValor = carrinho.reduce((acc, item) => acc + (item.preco * item.qtd), 0);
+
+      countBadge.innerText = totalItens;
+      totalEl.innerText = formatarMoeda(totalValor);
+
+      if (carrinho.length === 0) {
+        container.innerHTML = `<p style="color: var(--text-muted); text-align: center; margin-top: 40px;">Seu carrinho está vazio.<br>Adicione produtos ou serviços do catálogo.</p>`;
+        return;
+      }
+
+      container.innerHTML = "";
+      carrinho.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "cart-item";
+        div.innerHTML = `
+          <div class="cart-item-info">
+            <h4>${item.nome}</h4>
+            <span>${formatarMoeda(item.preco * item.qtd)}</span>
+          </div>
+          <div class="qty-controls">
+            <button class="qty-btn" onclick="alterarQuantidade(${item.id}, -1)">-</button>
+            <span>${item.qtd}</span>
+            <button class="qty-btn" onclick="alterarQuantidade(${item.id}, 1)">+</button>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function toggleCart() {
+      document.getElementById("cartOverlay").classList.toggle("open");
+      document.getElementById("cartDrawer").classList.toggle("open");
+    }
+
+    function mostrarToast(texto) {
+      const toast = document.getElementById("toast");
+      toast.innerText = texto;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2200);
+    }
+
+    function finalizarNoWhatsApp() {
+      if (carrinho.length === 0) {
+        alert("Adicione pelo menos um item ao carrinho antes de finalizar!");
+        return;
+      }
+
+      const nomeCliente = document.getElementById("clientName").value.trim();
+      const enderecoCliente = document.getElementById("clientAddress").value.trim();
+      const totalValor = carrinho.reduce((acc, item) => acc + (item.preco * item.qtd), 0);
+
+      let mensagem = `*NOVO PEDIDO - ${CONFIG_LOJA.nome.toUpperCase()}*\n\n`;
+
+      if (nomeCliente) mensagem += `*Cliente:* ${nomeCliente}\n`;
+      if (enderecoCliente) mensagem += `*Endereço/Local:* ${enderecoCliente}\n`;
+      if (nomeCliente || enderecoCliente) mensagem += `\n`;
+
+      mensagem += `*Itens selecionados:*\n`;
+      carrinho.forEach(item => {
+        mensagem += `▪ ${item.qtd}x ${item.nome} — ${formatarMoeda(item.preco * item.qtd)}\n`;
+      });
+
+      mensagem += `\n*VALOR TOTAL:* ${formatarMoeda(totalValor)}\n`;
+      mensagem += `\n_Aguardo confirmação para combinarmos a entrega / instalação!_`;
+
+      const urlWhatsApp = `https://wa.me/${CONFIG_LOJA.whatsapp}?text=${encodeURIComponent(mensagem)}`;
+      window.open(urlWhatsApp, "_blank");
+    }
+
+    // Inicializar catálogo e carrinho
+    renderizarProdutos();
+    atualizarInterfaceCarrinho();
+  </script>
+</body>
+</html>
